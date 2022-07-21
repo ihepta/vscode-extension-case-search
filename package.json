@@ -10,6 +10,11 @@
 	"categories": [
 		"Other"
 	],
+  "icon": "resources/search.png",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ihepta/vscode-extension-case-search.git"
+  },
 	"activationEvents": [
 		"onCommand:case-search.showSearchBox"
 	],
