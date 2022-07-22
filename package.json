@@ -2,7 +2,7 @@
 	"name": "case-search",
 	"displayName": "Case Search",
 	"description": "A VS Code search extension based on native search component.",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"engines": {
 		"vscode": "^1.40.0"
 	},
@@ -10,11 +10,11 @@
 	"categories": [
 		"Other"
 	],
-  "icon": "resources/search.png",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/ihepta/vscode-extension-case-search.git"
-  },
+	"icon": "resources/search.png",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/ihepta/vscode-extension-case-search.git"
+	},
 	"activationEvents": [
 		"onCommand:case-search.showSearchBox"
 	],
