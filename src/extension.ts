@@ -1,5 +1,6 @@
 import { commands, QuickPickItem, window } from "vscode";
 import type { ExtensionContext } from "vscode";
+import { paramCase, pascalCase, constantCase, snakeCase, camelCase } from "change-case";
 
 const quickPickItems: QuickPickItem[] = [
   {
@@ -18,44 +19,42 @@ const quickPickItems: QuickPickItem[] = [
     label: "@UPPER_SNAKE_CASE"
   },
   {
-    label: "@underline"
+    label: "@snake_case"
   }
 ];
 
 function transformQuery2RegExp(query: string, scope: string) {
-  const arr = query.split(/\s+/);
   switch(scope) {
     case "@all":
       return [
-        arr.map(s => s.toLowerCase()).join("-"),
-        arr.map((s, i) => i === 0 ? s.toLowerCase() : s.charAt(0).toUpperCase() + s.substring(1).toLowerCase()).join(""),
-        arr.map(s => s.charAt(0).toUpperCase() + s.substring(1).toLowerCase()).join(""),
-        arr.map(s => s.toUpperCase()).join("_"),
-        arr.map(s => s.toLowerCase()).join("_")
+        paramCase(query),
+        camelCase(query),
+        pascalCase(query),
+        constantCase(query),
+        snakeCase(query)
       ].reduce((pre, cur) => {
         pre += pre.indexOf(cur) === -1 ? `|${cur}` : "";
         return pre;
       }, "").substring(1);
     case "@kebab-case":
-      return arr.map(s => s.toLowerCase()).join("-");
+      return paramCase(query);
     case "@camelCase":
-      return arr.map((s, i) => i === 0 ? s.toLowerCase() : s.charAt(0).toUpperCase() + s.substring(1).toLowerCase()).join("");
+      return camelCase(query);
     case "@PascalCase":
-      return arr.map(s => s.charAt(0).toUpperCase() + s.substring(1).toLowerCase()).join("");
+      return pascalCase(query);
     case "@UPPER_SNAKE_CASE":
-      return arr.map(s => s.toUpperCase()).join("_");
-    case "@underline":
-      return arr.map(s => s.toLowerCase()).join("_");
+      return constantCase(query);
+    case "@snake_case":
+      return snakeCase(query);
   }
 }
 
 export function activate(context: ExtensionContext) {
-
   context.subscriptions.push(commands.registerCommand('case-search.showSearchBox', async () => {
 
     const quickPick = window.createQuickPick();
     quickPick.items = quickPickItems;
-    quickPick.placeholder = "space separated query text , default scope is @all";
+    quickPick.placeholder = "please input camelCased query text , default scope is @all";
     quickPick.onDidChangeSelection(e => {
       const item = e[0];
       if (item) {

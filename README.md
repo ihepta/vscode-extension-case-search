@@ -6,7 +6,7 @@ The extension based on native search component. It is used to search for multipl
 * camelCase
 * PascalCase
 * UPPER_SNAKE_CASE
-* underline
+* snake_case
 
 If no case is specified, it defaults to **all cases**.
 
@@ -19,11 +19,5 @@ The fastest way to use it is to use shortcut keys `⌘+F1`. You can then select 
 Also, The search box can be show up by invoking the command `Case Search: Search by case` from the Command Palette. The Command Palette can be invoked by the shortcut key `⇧+⌘+P`.
 
 ![screenshot2](resources/screenshot2.gif)
-
-## Release Notes
-
-### 0.0.1
-
-Initial release.
 
 ## **Enjoy!**
