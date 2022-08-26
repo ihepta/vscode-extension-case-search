@@ -12,3 +12,7 @@
 
 - feat: add dependency `change-case`, use these functions in `change-case` to transform query string.
 - refactor: change function name `@underline` to `@snake_case`.
+
+## 0.0.4
+
+- fix: Chinese be transformed to empty.

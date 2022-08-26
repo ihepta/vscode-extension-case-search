@@ -75,7 +75,7 @@ export function activate(context: ExtensionContext) {
       }
 
       if (query) {
-        commands.executeCommand("workbench.action.findInFiles", { query: transformQuery2RegExp(query, scope), triggerSearch: true, isRegex: true, isCaseSensitive: true });
+        commands.executeCommand("workbench.action.findInFiles", { query: transformQuery2RegExp(query, scope) || query, triggerSearch: true, isRegex: true, isCaseSensitive: true });
         quickPick.hide();
       }
     });
