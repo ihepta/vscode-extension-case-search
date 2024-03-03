@@ -2,7 +2,7 @@
 	"name": "case-search",
 	"displayName": "Case Search",
 	"description": "A VS Code search extension based on native search component.",
-	"version": "0.0.4",
+	"version": "0.0.5",
 	"engines": {
 		"vscode": "^1.40.0"
 	},

@@ -16,3 +16,7 @@
 ## 0.0.4
 
 - fix: Chinese be transformed to empty.
+
+## 0.0.5
+
+- feat: can select multiple cases.
