@@ -7,6 +7,8 @@ The extension based on native search component. It is used to search for multipl
 * PascalCase
 * snake_case
 * UPPER_SNAKE_CASE
+* Capital Case
+* path/case
 
 If no case is specified, it defaults to **all cases**.
 

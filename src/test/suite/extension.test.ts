@@ -3,7 +3,8 @@ import * as vscode from 'vscode';
 
 import { exportedForTesting } from '../../extension';
 const { kebabCaseQPI, camelCaseQPI, pascalCaseQPI, snakeCaseQPI, snakeUpperCaseQPI } = exportedForTesting;
-const { transformQuery2RegExp, buildRegexQuery } = exportedForTesting;
+const { capitalCaseQPI, pathCaseQPI } = exportedForTesting;
+ const { transformQuery2RegExp, buildRegexQuery } = exportedForTesting;
 
 
 suite('Extension Test Suite', () => {
@@ -20,6 +21,10 @@ suite('Extension Test Suite', () => {
 		assert.strictEqual("one_two_three_four", transformQuery2RegExp("one two_three-Four", "snake_case"));
 		assert.strictEqual("ONE_TWO_THREE_FOUR", transformQuery2RegExp("oneTwoThreeFour",    "UPPER_SNAKE_CASE"));
 		assert.strictEqual("ONE_TWO_THREE_FOUR", transformQuery2RegExp("one two_three-Four", "UPPER_SNAKE_CASE"));
+		assert.strictEqual("One Two Three Four", transformQuery2RegExp("oneTwoThreeFour",    "Capital Case"));
+		assert.strictEqual("One Two Three Four", transformQuery2RegExp("one two_three-Four", "Capital Case"));
+		assert.strictEqual("one/two/three/four", transformQuery2RegExp("oneTwoThreeFour",    "path/case"));
+		assert.strictEqual("one/two/three/four", transformQuery2RegExp("one two_three-Four", "path/case"));
 	});
 
 	test('buildRegexQuery', () => {
@@ -32,9 +37,14 @@ suite('Extension Test Suite', () => {
 		assert.strictEqual("OneTwoThreeFour",    buildRegexQuery(query, [pascalCaseQPI]));
 		assert.strictEqual("one_two_three_four", buildRegexQuery(query, [snakeCaseQPI]));
 		assert.strictEqual("ONE_TWO_THREE_FOUR", buildRegexQuery(query, [snakeUpperCaseQPI]));
+		assert.strictEqual("One Two Three Four", buildRegexQuery(query, [capitalCaseQPI]));
+		assert.strictEqual("one/two/three/four", buildRegexQuery(query, [pathCaseQPI]));
 
 		assert.strictEqual("one-two-three-four|oneTwoThreeFour",
 						    buildRegexQuery(query, [kebabCaseQPI, camelCaseQPI]));
+
+		assert.strictEqual("oneTwoThreeFour|One Two Three Four",
+						    buildRegexQuery(query, [camelCaseQPI, capitalCaseQPI]));
 
 		assert.strictEqual("OneTwoThreeFour|one_two_three_four|ONE_TWO_THREE_FOUR",
 							buildRegexQuery(query, [pascalCaseQPI, snakeCaseQPI, snakeUpperCaseQPI]));

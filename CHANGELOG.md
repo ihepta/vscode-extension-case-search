@@ -20,3 +20,5 @@
 ## 0.0.5
 
 - feat: can select multiple cases.
+- feat: add Capital Case.
+- feat: add path/case.

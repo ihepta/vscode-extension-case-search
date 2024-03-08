@@ -1,14 +1,20 @@
 import { commands, QuickPickItem, window } from "vscode";
 import type { ExtensionContext } from "vscode";
-import { paramCase, pascalCase, constantCase, snakeCase, camelCase } from "change-case";
+import { paramCase, camelCase, pascalCase, snakeCase, constantCase, capitalCase, pathCase } from "change-case";
 
 
-const kebabCaseQPI:      QuickPickItem = { label: "kebab-case",       alwaysShow: true, };
-const camelCaseQPI:      QuickPickItem = { label: "camelCase",        alwaysShow: true, };
-const pascalCaseQPI:     QuickPickItem = { label: "PascalCase",       alwaysShow: true, };
-const snakeCaseQPI:      QuickPickItem = { label: "snake_case",       alwaysShow: true, };
-const snakeUpperCaseQPI: QuickPickItem = { label: "UPPER_SNAKE_CASE", alwaysShow: true, };
-const quickPickItems:    QuickPickItem[] = [ kebabCaseQPI, camelCaseQPI, pascalCaseQPI, snakeCaseQPI, snakeUpperCaseQPI ];
+const kebabCaseQPI:       QuickPickItem = { label: "kebab-case",        alwaysShow: true, };
+const camelCaseQPI:       QuickPickItem = { label: "camelCase",         alwaysShow: true, };
+const pascalCaseQPI:      QuickPickItem = { label: "PascalCase",        alwaysShow: true, };
+const snakeCaseQPI:       QuickPickItem = { label: "snake_case",        alwaysShow: true, };
+const snakeUpperCaseQPI:  QuickPickItem = { label: "UPPER_SNAKE_CASE",  alwaysShow: true, };
+const capitalCaseQPI:     QuickPickItem = { label: "Capital Case",      alwaysShow: true, };
+const pathCaseQPI:        QuickPickItem = { label: "path/case",         alwaysShow: true, };
+const quickPickItems:     QuickPickItem[] = [ kebabCaseQPI,
+                                              camelCaseQPI, pascalCaseQPI,
+                                              snakeCaseQPI, snakeUpperCaseQPI,
+                                              capitalCaseQPI,
+                                              pathCaseQPI ];
 
 function transformQuery2RegExp(query: string, scope: string) {
   switch(scope) {
@@ -22,6 +28,10 @@ function transformQuery2RegExp(query: string, scope: string) {
       return snakeCase(query);
     case "UPPER_SNAKE_CASE":
       return constantCase(query);
+    case "Capital Case":
+      return capitalCase(query);
+    case "path/case":
+      return pathCase(query);
   }
 }
 
@@ -103,6 +113,8 @@ export const exportedForTesting = {
   pascalCaseQPI,
   snakeCaseQPI,
   snakeUpperCaseQPI,
+  capitalCaseQPI,
+  pathCaseQPI,
   transformQuery2RegExp,
   buildRegexQuery,
 };
