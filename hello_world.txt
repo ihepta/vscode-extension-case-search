@@ -1,0 +1,10 @@
+
+hello.world
+hello-world
+helloWorld
+HelloWorld
+hello_world
+HELLO_WORLD
+hello world
+Hello World
+hello/world

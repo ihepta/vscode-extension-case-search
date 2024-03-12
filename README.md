@@ -5,14 +5,16 @@ The extension based on native search component. It is used to search for multipl
 * kebab-case
 * camelCase
 * PascalCase
-* UPPER_SNAKE_CASE
 * snake_case
+* UPPER_SNAKE_CASE
+* Capital Case
+* path/case
 
 If no case is specified, it defaults to **all cases**.
 
 ## Usage
 
-The fastest way to use it is to use shortcut keys `⌘+F1`. You can then select the appropriate case from the drop-down options and input your query string for custom searching.
+The fastest way to use it is to use shortcut keys `⌘+F1`. You can then select one or many appropriate cases from the drop-down options and input your query string for custom searching.
 
 ![screenshot1](resources/screenshot1.gif)
 
