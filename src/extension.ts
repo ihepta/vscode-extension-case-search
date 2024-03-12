@@ -75,6 +75,36 @@ function saveSelectedItems(context: ExtensionContext, selectedItems: readonly Qu
   }  
 }
 
+function getSelectedText() {
+  const editor = window.activeTextEditor;
+  const selection = editor?.selection;
+  const selectedText = editor?.document.getText(selection);
+  return selectedText;
+}
+
+// Get the initial value to search
+function getInitialValue(context: ExtensionContext) {
+  const lastSearchedValue = context.workspaceState.get<string>("lastSearchedValue", "");
+  const selectedText = getSelectedText();
+
+  if (selectedText === undefined) {
+    // No selected text
+    // So start with last searched value or ""
+    return lastSearchedValue;
+  }
+
+  const lastSelectedText = context.workspaceState.get<string>("lastSelectedText", "");
+  if (selectedText !== lastSelectedText) {
+    // Selected text modified (by user) since last search
+    // So start with it
+    return selectedText;
+  }
+
+  // Selected text NOT modified since last search
+  // So start with last searched value or ""
+  return lastSearchedValue;
+}
+
 export function activate(context: ExtensionContext) {
   context.subscriptions.push(commands.registerCommand('case-search.showSearchBox', async () => {
 
@@ -83,11 +113,15 @@ export function activate(context: ExtensionContext) {
     quickPick.canSelectMany = true;
     quickPick.selectedItems = readSelectedItems(context);
     quickPick.placeholder = "please input query text, default scope is all cases";
+    quickPick.value = getInitialValue(context);
     quickPick.onDidAccept(() => {
       // console.log("onDidAccept", "value", quickPick.value, "selectedItems", quickPick.selectedItems);
       saveSelectedItems(context, quickPick.selectedItems);
 
       if (quickPick.value) {
+        context.workspaceState.update("lastSearchedValue", quickPick.value);
+        context.workspaceState.update("lastSelectedText", getSelectedText());
+
         // If no selectedItems, we take all quickPickItems
         let items = quickPick.selectedItems.length <= 0 ? quickPickItems : quickPick.selectedItems;
         let query = buildRegexQuery(quickPick.value, items);

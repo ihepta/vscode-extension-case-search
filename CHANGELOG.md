@@ -22,3 +22,7 @@
 - feat: can select multiple cases.
 - feat: add Capital Case.
 - feat: add path/case.
+
+## 0.0.6
+
+- feat: start with last searched value or current editor selection
